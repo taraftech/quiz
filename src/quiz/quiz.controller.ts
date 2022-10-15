@@ -9,8 +9,9 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { CreateQuizDto } from 'src/dto/quiz/create-quiz.dto';
-import { UpdateQuizDto } from 'src/dto/quiz/update-quiz.dto';
+
+import { CreateQuizDto } from '../dto/quiz/create-quiz.dto';
+import { UpdateQuizDto } from '../dto/quiz/update-quiz.dto';
 import { QuizService } from './quiz.service';
 
 @Controller('quiz')
@@ -55,7 +56,7 @@ export class QuizController {
   }
 
   @Get()
-  async getQuiz(@Res() response) {
+  async getAllQuizes(@Res() response) {
     try {
       const quizData = await this.quizService.getAllQuizes();
       return response.status(HttpStatus.OK).json({
@@ -63,12 +64,12 @@ export class QuizController {
         quizData,
       });
     } catch (err) {
-      response.status(err.status).json(err.response);
+      return response.status(err.status).json(err.response);
     }
   }
 
   @Get('/:id')
-  async getQuizById(@Res() response, @Param('id') quizId: string) {
+  async getQuiz(@Res() response, @Param('id') quizId: string) {
     try {
       const quizData = await this.quizService.getQuiz(quizId);
       return response.status(HttpStatus.OK).json({

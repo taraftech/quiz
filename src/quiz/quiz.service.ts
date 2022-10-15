@@ -8,6 +8,7 @@ import { IQuiz } from 'src/interface/quiz.interface';
 @Injectable()
 export class QuizService {
   constructor(@InjectModel('Quiz') private QuizModel: Model<IQuiz>) {}
+
   async createQuiz(createQuizDto: CreateQuizDto): Promise<IQuiz> {
     const newQuiz = await new this.QuizModel(createQuizDto);
     return newQuiz.save();
