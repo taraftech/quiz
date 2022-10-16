@@ -16,6 +16,9 @@ export class Option {
 
   @Prop()
   isCorrect: boolean;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Question' })
+  question: Question;
 }
 
 export const OptionSchema = SchemaFactory.createForClass(Option);

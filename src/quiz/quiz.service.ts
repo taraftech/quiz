@@ -30,7 +30,7 @@ export class QuizService {
   }
 
   async getAllQuizes(): Promise<IQuiz[]> {
-    const quizData = await this.QuizModel.find();
+    const quizData = await this.QuizModel.find().populate('questions');
     if (!quizData || quizData.length == 0) {
       throw new NotFoundException('No Quiz Found!');
     }

@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpStatus,
   Param,
   Post,
@@ -33,6 +34,19 @@ export class OptionController {
         message: 'Error: option not created!',
         error: 'Bad Request',
       });
+    }
+  }
+
+  @Get()
+  async getOptions(@Res() response) {
+    try {
+      const optionData = await this.optionService.getOptions();
+      return response.status(HttpStatus.OK).json({
+        message: 'options found',
+        optionData,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
     }
   }
 

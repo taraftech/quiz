@@ -34,7 +34,9 @@ export class QuestionService {
   }
 
   async getAllQuestions(): Promise<IQuestion[]> {
-    const questionData = await this.QuestionModel.find();
+    const questionData = await this.QuestionModel.find()
+      .populate('quizId')
+      .populate('options');
     if (!questionData || questionData.length == 0) {
       throw new NotFoundException('No Question Found!');
     }

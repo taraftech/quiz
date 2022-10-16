@@ -14,6 +14,14 @@ export class OptionService {
     return newOption.save();
   }
 
+  async getOptions(): Promise<IOption[]> {
+    const optionData = await this.OptionModel.find().populate('question');
+    if (!optionData) {
+      throw new NotFoundException('no options funded!');
+    }
+    return optionData;
+  }
+
   async updateOption(
     optionId: string,
     updateOptionDto: UpdateOptionDto,

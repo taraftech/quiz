@@ -9,7 +9,6 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
-import { response } from 'express';
 import { CreateQuestionDto } from 'src/dto/question/create-question.dto';
 import { UpdateQuestionDto } from 'src/dto/question/update-question.dto';
 import { QuestionService } from './question.service';

@@ -9,5 +9,5 @@ export class CreateQuestionDto {
 
   @IsString()
   @IsNotEmpty()
-  readonly quizId: Quiz;
+  readonly quiz: Quiz;
 }
