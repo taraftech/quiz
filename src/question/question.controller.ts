@@ -102,7 +102,7 @@ export class QuestionController {
     }
   }
 
-  @Post(':id')
+  @Post('answer/:id')
   async answer(
     @Res() response,
     @Param('id') questionId: string,
