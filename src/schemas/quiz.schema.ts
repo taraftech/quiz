@@ -12,11 +12,6 @@ export class Quiz {
   @Prop()
   description: string;
 
-  // @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Question' })
-  // questions: Question[];
-
-  // @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Question' }] })
-  // questions: Question[];
   @Prop()
   questions: [
     {

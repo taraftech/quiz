@@ -9,6 +9,8 @@ import {
   Put,
   Res,
 } from '@nestjs/common';
+import { response } from 'express';
+import { answerDto } from 'src/dto/answer/answer.dto';
 import { CreateQuestionDto } from 'src/dto/question/create-question.dto';
 import { UpdateQuestionDto } from 'src/dto/question/update-question.dto';
 import { QuestionService } from './question.service';
@@ -94,6 +96,22 @@ export class QuestionController {
       return response.status(HttpStatus.OK).json({
         message: `Question #${questionId} has been successfully deleted`,
         deletedQuestion,
+      });
+    } catch (err) {
+      return response.status(err.status).json(err.response);
+    }
+  }
+
+  @Post(':id')
+  async answer(
+    @Res() response,
+    @Param('id') questionId: string,
+    @Body() answerdto: answerDto,
+  ) {
+    try {
+      const answer = await this.questionService.answer(questionId, answerdto);
+      return response.status(HttpStatus.OK).json({
+        answer,
       });
     } catch (err) {
       return response.status(err.status).json(err.response);

@@ -13,8 +13,11 @@ export class Question {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' })
   quizId: Quiz;
 
-  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: 'Option' })
-  options: Option[];
+  @Prop()
+  answer: string;
+
+  @Prop()
+  options: string[];
 }
 
 export const QuestionSchema = SchemaFactory.createForClass(Question);
