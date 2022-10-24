@@ -6,7 +6,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { QuestionModule } from './question/question.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configuration } from './config/configuration';
-import { Config } from 'prettier';
+import { validationSchema } from './config/validation';
 
 @Module({
   imports: [
@@ -14,6 +14,7 @@ import { Config } from 'prettier';
       isGlobal: true,
       envFilePath: `src/config/env/${process.env.NODE_ENV}.env`,
       load: [configuration],
+      validationSchema,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
