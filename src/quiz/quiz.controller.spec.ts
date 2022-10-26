@@ -1,51 +1,52 @@
-import { getModelToken } from '@nestjs/mongoose';
+import { Res } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { Quiz } from '../schemas/quiz.schema';
+import { response } from 'express';
+import { number } from 'joi';
+import { CreateQuizDto } from '../dto/quiz/create-quiz.dto';
 import { QuizController } from './quiz.controller';
 import { QuizService } from './quiz.service';
 
 describe('QuizController', () => {
-  let quizController: QuizController;
-  let spyService: QuizService;
+  let controller: QuizController;
 
-  beforeAll(async () => {
-    const ApiServiceProvider = {
-      provide: QuizService,
-      useFactory: () => ({
-        createQuiz: jest.fn(() => []),
-        updateQuiz: jest.fn(()=> []),
-        getQuiz: jest.fn(() => {}),
-        getQuizById: jest.fn(() => {}),
-        deleteQuiz: jest.fn(() => {}),
-      }),
-    };
-
+  const mockQuizService = {
+    createQuiz: jest.fn((dto) => {
+      return {
+        id: number,
+        ...dto,
+      };
+    }),
+  };
+  beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [QuizController],
-      providers: [
-        QuizService,
-        { provide: getModelToken(Quiz.name), useValue: jest.fn() },
-      ],
-    }).compile();
+      providers: [QuizService],
+    })
+      .overrideProvider(QuizService)
+      .useValue(mockQuizService)
+      .compile();
 
-    quizController = module.get<QuizController>(QuizController);
-    spyService = module.get<QuizService>(QuizService);
+    controller = module.get<QuizController>(QuizController);
   });
 
-  // it('calling getQuiz method', async () => {
-  //   await quizController.getQuiz([]);
-  //   expect(spyService.getAllQuizes).toHaveBeenCalled();
-  // });
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
 
-  describe("* Find One By Id", () => {
-    it("should return an entity of client if successful", async () => {
-      const expectedResult = new clientD();
-      const mockNumberToSatisfyParameters = 0;
-      jest.spyOn(clientService, "findOneById").mockResolvedValue(expectedResult);
-      expect(await clientController.findOneById(mockNumberToSatisfyParameters)).toBe(expectedResult);
+  it('should create Quiz', () => {
+    // const dto = {"title": "title", "description": "description"}
+    const dto = new CreateQuizDto();
+    expect(
+      controller.createQuiz({
+        title: 'title',
+        description: 'description',
+      }),
+    ).toEqual({
+      id: expect.any(Number),
+      title: 'title',
+      description: 'description',
     });
 
-  afterEach(() => {
-    jest.resetAllMocks();
- });
+    expect(mockQuizService.createQuiz).toHaveBeenCalled();
+  });
 });

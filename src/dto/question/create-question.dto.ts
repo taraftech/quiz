@@ -13,7 +13,7 @@ export class CreateQuestionDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  readonly quizId: Quiz;
+  readonly quiz: string;
 
   @ApiProperty()
   readonly answer: string;

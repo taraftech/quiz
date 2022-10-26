@@ -10,9 +10,9 @@ import {
   Res,
 } from '@nestjs/common';
 import { response } from 'express';
-import { answerDto } from 'src/dto/answer/answer.dto';
-import { CreateQuestionDto } from 'src/dto/question/create-question.dto';
-import { UpdateQuestionDto } from 'src/dto/question/update-question.dto';
+import { answerDto } from '../dto/answer/answer.dto';
+import { CreateQuestionDto } from '../dto/question/create-question.dto';
+import { UpdateQuestionDto } from '../dto/question/update-question.dto';
 import { QuestionService } from './question.service';
 
 @Controller('question')
