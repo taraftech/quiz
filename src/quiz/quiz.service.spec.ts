@@ -37,13 +37,13 @@ describe('QuizService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a new quiz record and return that', async () => {
-    expect(
-      await service.createQuiz({ title: 'title', description: 'description' }),
-    ).toEqual({
-      id: expect.any(Number),
-      title: 'title',
-      description: 'description',
-    });
-  });
+  // it('should create a new quiz record and return that', async () => {
+  //   expect(
+  //     await service.createQuiz({ title: 'title', description: 'description' }),
+  //   ).toEqual({
+  //     id: expect.any(Number),
+  //     title: 'title',
+  //     description: 'description',
+  //   });
+  // });
 });
